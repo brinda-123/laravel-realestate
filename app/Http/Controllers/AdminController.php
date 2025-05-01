@@ -9,11 +9,16 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+use App\Models\Property;
+
 class AdminController extends Controller
 {
+
     public function AdminDashboard(){
 
-        return view('admin.index');
+        $hotproperty = Property::with('type')->where('hot', 1)->latest()->limit(4)->get();
+
+        return view('admin.index', compact('hotproperty'));
 
     } // End Method  
 

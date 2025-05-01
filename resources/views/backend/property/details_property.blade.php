@@ -136,7 +136,7 @@
 
                  <tr> 
                     <td>Property Type </td>
-                    <td><code>{{ $property['type']['type_name'] }}</code></td> 
+                    <td><code>{{ $property->type->type_name ?? 'N/A' }}</code></td>
                 </tr>
  
                  <tr> 

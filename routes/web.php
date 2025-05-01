@@ -19,6 +19,7 @@ use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CompareController;
+use App\Http\Controllers\MortgageCalculatorController;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
@@ -257,6 +258,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
           Route::post('/store/state', 'StoreState')->name('store.state');
           Route::get('/edit/state/{id}', 'EditState')->name('edit.state');
           Route::post('/update/state', 'UpdateState')->name('update.state');
+          Route::get('/update/state', function () {
+               return redirect()->route('all.state');
+          });
           Route::get('/delete/state/{id}', 'DeleteState')->name('delete.state');
      });
 
@@ -430,7 +434,9 @@ Route::middleware(['auth', 'roles:agent'])->group(function () {
 
 // Frontend Property Details All Route 
 
-Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
+Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails'])->name('property.details');
+
+Route::post('/mortgage/calculate', [MortgageCalculatorController::class, 'mortgageCalculate'])->name('mortgage.calculate');
 
 // Wishlist Add Route 
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);

@@ -167,7 +167,7 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(2)->get();
                 <tr>
                   <td>{{ $key+1 }}</td>
                   <td><img src="{{ asset($item->property_thambnail) }}" style="width:70px; height:40px;"> </td>
-                  <td>{{ $item['type']['type_name'] }}</td>
+                  <td>{{ $item->type->type_name ?? 'N/A' }}</td>
                   <td>{{ $item->city }}</td>
                   <td><a href="{{ route('details.property',$item->id) }}" class="btn btn-inverse-info" title="Details"> <i data-feather="eye"></i> </a></td>
 

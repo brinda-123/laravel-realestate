@@ -58,35 +58,41 @@ class StateController extends Controller
         $state_id = $request->id;
 
         if ($request->file('state_image')) {
-    $image = $request->file('state_image');
-    $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-    Image::make($image)->resize(370,275)->save('upload/state/'.$name_gen);
-    $save_url = 'upload/state/'.$name_gen;
+            $state = State::findOrFail($state_id);
+            $old_image = $state->state_image;
+            if ($old_image && file_exists($old_image)) {
+                unlink($old_image);
+            }
 
-    State::findOrFail($state_id)->update([
-        'state_name' => $request->state_name,
-        'state_image' => $save_url, 
-    ]);
+            $image = $request->file('state_image');
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(370,275)->save('upload/state/'.$name_gen);
+            $save_url = 'upload/state/'.$name_gen;
 
-     $notification = array(
-            'message' => 'State Updated with Image Successfully',
-            'alert-type' => 'success'
-        );
+            $state->update([
+                'state_name' => $request->state_name,
+                'state_image' => $save_url, 
+            ]);
 
-        return redirect()->route('all.state')->with($notification);
+            $notification = array(
+                'message' => 'State Updated with Image Successfully',
+                'alert-type' => 'success'
+            );
 
-        }else{
+            return redirect()->route('all.state')->with($notification);
 
-       State::findOrFail($state_id)->update([
-        'state_name' => $request->state_name, 
-    ]);
+        } else {
 
-     $notification = array(
-            'message' => 'State Updated without Image Successfully',
-            'alert-type' => 'success'
-        );
+            State::findOrFail($state_id)->update([
+                'state_name' => $request->state_name, 
+            ]);
 
-        return redirect()->route('all.state')->with($notification);
+            $notification = array(
+                'message' => 'State Updated without Image Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.state')->with($notification);
 
         }
 

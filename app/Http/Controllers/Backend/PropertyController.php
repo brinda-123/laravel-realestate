@@ -23,12 +23,12 @@ use Illuminate\Support\Collection;
 class PropertyController extends Controller
 {
 
-    public function AllProperty(){
+public function AllProperty(){
 
-        $property = Property::latest()->get();
-        return view('backend.property.all_property',compact('property'));
+    $property = Property::with('type')->latest()->get();
+    return view('backend.property.all_property',compact('property'));
 
-    } // End Method 
+} // End Method 
     
 
 
@@ -361,22 +361,26 @@ class PropertyController extends Controller
     public function DeleteProperty($id){
 
         $property = Property::findOrFail($id);
-        unlink($property->property_thambnail);
+        if (file_exists($property->property_thambnail)) {
+            unlink($property->property_thambnail);
+        }
 
         Property::findOrFail($id)->delete();
 
         $image = MultiImage::where('property_id',$id)->get();
 
         foreach($image as $img){
-            unlink($img->photo_name);
-            MultiImage::where('property_id',$id)->delete();
+            if (file_exists($img->photo_name)) {
+                unlink($img->photo_name);
+            }
         }
+        MultiImage::where('property_id',$id)->delete();
 
         $facilitiesData = Facility::where('property_id',$id)->get();
         foreach($facilitiesData as $item){
             $item->facility_name;
-            Facility::where('property_id',$id)->delete();
         }
+        Facility::where('property_id',$id)->delete();
 
 
          $notification = array(
