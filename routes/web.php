@@ -507,3 +507,8 @@ Route::get('/aboutus', [IndexController::class, 'aboutus'])->name('aboutus');
 
 Route::get('/conntactus', [IndexController::class, 'contactus'])->name('contactus');
 
+
+
+
+//ewkfjwekfjkejfkej
+// wenfkenkferkfm
