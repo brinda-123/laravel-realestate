@@ -42,6 +42,7 @@
 
   <!-- Layout styles -->  
   <link id="theme-style" rel="stylesheet" href="{{ asset('backend/assets/css/demo1/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/custom_admin.css') }}">
   <!-- End layout styles -->
 
   <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />

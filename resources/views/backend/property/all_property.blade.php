@@ -35,7 +35,7 @@
                    @foreach($property as $key => $item)
                       <tr>
                         <td>{{ $key+1 }}</td>
-                        <td><img src="{{ asset($item->property_thambnail) }}" style="width:70px; height:40px;"> </td> 
+                        <td><img src="{{ asset($item->property_thambnail) }}" style="width:80px; height:80px; border-radius:0"> </td> 
                         <td>{{ $item->property_name }}</td> 
                         <td>{{ $item->type->type_name ?? 'N/A' }}</td> 
                         <td>{{ $item->property_status }}</td> 

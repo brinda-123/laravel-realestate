@@ -36,7 +36,7 @@
                 @foreach($allagent as $key => $item)
                 <tr>
                   <td>{{ $key+1 }}</td>
-                  <td><img src="{{ (!empty($item->photo)) ? url('upload/agent_images/'.$item->photo) : url('upload/no_image.jpg') }}" style="width:70px; height:40px;"> </td>
+                  <td><img src="{{ (!empty($item->photo)) ? url('upload/agent_images/'.$item->photo) : url('upload/no_image.jpg') }}" style="width:80px; height:80px; border-radius:2"> </td>
                   <td>{{ $item->name }}</td>
                   <td>{{ $item->role }}</td>
                   <td>

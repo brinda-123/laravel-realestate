@@ -510,5 +510,3 @@ Route::get('/conntactus', [IndexController::class, 'contactus'])->name('contactu
 
 
 
-//ewkfjwekfjkejfkej
-// wenfkenkferkfm

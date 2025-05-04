@@ -1,4 +1,4 @@
-~@extends('admin.admin_dashboard')
+@extends('admin.admin_dashboard')
 @section('admin')
 @php
 $allAgentsCount = App\Models\User::where('role', 'agent')->count();
@@ -136,10 +136,11 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(2)->get();
  
 
   <div class="row">
+
   <div class="col-lg-12 col-xl-7 stretch-card">
-      <div class="card">
+      <div class="card shadow rounded-4">
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-baseline mb-2">
+          <div class="d-flex justify-content-between align-items-baseline mb-3">
             <h6 class="card-title mb-0">Top Property</h6>
             <div class="dropdown mb-2">
               <a type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -152,31 +153,30 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(2)->get();
             </div>
           </div>
           <div class="table-responsive">
-            <table id="#" class="table">
+            <table id="#" class="table modern-table align-middle text-center">
               <thead>
                 <tr>
-                  <th>Sl </th>
-                  <th>Image </th>
-                  <th>P Type </th>
-                  <th>City </th>
-                  <th>Action</th>
+                  <th scope="col">SR No.</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Property Type</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($hotproperty as $key => $item)
                 <tr>
                   <td>{{ $key+1 }}</td>
-                  <td><img src="{{ asset($item->property_thambnail) }}" style="width:70px; height:40px;"> </td>
+                  <td><img src="{{ asset($item->property_thambnail) }}" style="width:140px; height:80px; border-radius: 4px;"> </td>
                   <td>{{ $item->type->type_name ?? 'N/A' }}</td>
                   <td>{{ $item->city }}</td>
                   <td><a href="{{ route('details.property',$item->id) }}" class="btn btn-inverse-info" title="Details"> <i data-feather="eye"></i> </a></td>
-
                 </tr>
                 @endforeach
               </tbody>
             </table>
-
           </div>
+          
         </div>
       </div>
     </div>
@@ -197,7 +197,7 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(2)->get();
             </div>
           </div>
           <div class="table-responsive">
-            <table id="#" class="table">
+            <table id="#" class="table modern-table align-middle text-center">
               <thead>
                 <tr>
                   <th>Sl </th>
@@ -210,7 +210,7 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(2)->get();
                 @foreach($allagent as $key => $item)
                 <tr>
                   <td>{{ $key+1 }}</td>
-                  <td><img src="{{ (!empty($item->photo)) ? url('upload/agent_images/'.$item->photo) : url('upload/no_image.jpg') }}" style="width:70px; height:40px;"> </td>
+                  <td><img src="{{ (!empty($item->photo)) ? url('upload/agent_images/'.$item->photo) : url('upload/no_image.jpg') }}" style="width:80px; height:80px; border-radius: 2"> </td>
                   <td>{{ $item->name }}</td>
                   <td>
                     @if($item->status == 'active')
