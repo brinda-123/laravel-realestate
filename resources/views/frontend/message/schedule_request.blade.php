@@ -105,7 +105,7 @@
     @foreach($srequest as $key => $item)
     <tr>
       <th scope="row">{{ $key+1 }}</th>
-      <td>{{ $item['property']['property_name'] }}</td>
+      <td>{{ $item->property ? $item->property->property_name : 'N/A' }}</td>
       <td>{{ $item->tour_date }}</td>
       <td>{{ $item->tour_time }}</td>
       <td>

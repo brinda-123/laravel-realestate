@@ -1,4 +1,4 @@
-@extends('admin.admin_dashboard')
+ @extends('admin.admin_dashboard')
 @section('admin')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
