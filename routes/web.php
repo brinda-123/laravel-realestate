@@ -122,6 +122,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 
+
+
 /// Admin Group Middleware 
 Route::middleware(['auth', 'roles:admin'])->group(function () {
 
@@ -441,7 +443,7 @@ Route::post('/mortgage/calculate', [MortgageCalculatorController::class, 'mortga
 // Wishlist Add Route 
 Route::post('/add-to-wishList/{property_id}', [WishlistController::class, 'AddToWishList']);
 
-// Compare Add Route 
+// / Compare Add Route 
 Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
 
 // Send Message from Property Details Page 

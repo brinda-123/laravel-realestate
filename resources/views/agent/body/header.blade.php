@@ -158,28 +158,30 @@ $usermsg = App\Models\PropertyMessage::where('agent_id', $id)->get();
  </nav>
  <script>
    function switchTheme(themeName) {
-    href = "{{ asset('backend/assets/css') }}/" + themeName + ".css";
+    var themeLink = document.getElementById('theme-style');
+    if(themeLink) {
+      themeLink.setAttribute('href', "{{ asset('backend/assets/css') }}/" + themeName + ".css");
+    }
 }
+  const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
 
-   const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+  if (currentTheme) {
+    switchTheme(currentTheme);
+  } else {
+    switchTheme('demo1/style');
+  }
 
-   if (currentTheme) {
-     switchTheme(currentTheme);
-   } else {
-     switchTheme('demo1/style');
-   }
+  document.getElementById('dark-theme-toggle').addEventListener('click', function(event) {
+    event.preventDefault();
+    switchTheme('demo2/style');
+    localStorage.setItem('theme', 'demo2/style');
+  });
 
-   document.getElementById('dark-theme-toggle').addEventListener('click', function(event) {
-     event.preventDefault();
-     switchTheme('demo2/style');
-     localStorage.setItem('theme', 'demo2/style');
-   });
-
-   document.getElementById('light-theme-toggle').addEventListener('click', function(event) {
-     event.preventDefault();
-     switchTheme('demo1/style');
-     localStorage.setItem('theme', 'demo1/style');
-   });
+  document.getElementById('light-theme-toggle').addEventListener('click', function(event) {
+    event.preventDefault();
+    switchTheme('demo1/style');
+    localStorage.setItem('theme', 'demo1/style');
+  });
  </script>
  <script>
   document.addEventListener("DOMContentLoaded", function() {

@@ -4,34 +4,41 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class PropertySubmissionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $propertyData;
-    public $sellerName;
-
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($propertyData, $sellerName)
-    {
-        $this->propertyData = $propertyData;
-        $this->sellerName = $sellerName;
+    public function __construct(
+        public array $propertyData,
+        public string $sellerName
+    ) {
+        //
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function envelope(): Envelope
     {
-        return $this->subject('New Property Submission - ' . $this->propertyData['property_name'])
-                    ->view('emails.property_submission');
+        return new Envelope(
+            subject: 'New Property Submission - ' . $this->propertyData['property_name'],
+        );
+    }
+
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.property_submission',
+            with: [
+                'propertyData' => $this->propertyData,
+                'sellerName' => $this->sellerName,
+            ],
+        );
+    }
+
+    public function attachments(): array
+    {
+        return [];
     }
 }

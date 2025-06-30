@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
 <div class="page-content">
     <div class="row profile-body">
@@ -11,8 +12,15 @@
                         <h6 class="card-title">Add Property</h6>
 
                         @if(session('success'))
-                            <div class="alert alert-success">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
 

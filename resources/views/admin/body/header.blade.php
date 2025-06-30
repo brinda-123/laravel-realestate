@@ -151,7 +151,10 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(5)->get();
 </nav>
 <script>
  function switchTheme(themeName) {
-    href = "{{ asset('backend/assets/css') }}/" + themeName + ".css";
+    var themeLink = document.getElementById('theme-style');
+    if(themeLink) {
+      themeLink.setAttribute('href', "{{ asset('backend/assets/css') }}/" + themeName + ".css");
+    }
 }
   const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
 
@@ -173,6 +176,17 @@ $usermsg = App\Models\PropertyMessage::latest()->limit(5)->get();
     localStorage.setItem('theme', 'demo1/style');
   });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var newMessageCount = document.getElementById("newMessageCount");
+
+    document.getElementById("clearAllMessages").addEventListener("click", function() {
+      var messageItems = document.querySelectorAll(".email-list-item");
+      messageItems.forEach(function(item) {
+        item.parentNode.removeChild(item);
+      });
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var newMessageCount = document.getElementById("newMessageCount");

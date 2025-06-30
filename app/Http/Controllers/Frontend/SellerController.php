@@ -80,6 +80,7 @@ class SellerController extends Controller
 
     public function submitProperty(Request $request)
     {
+        \Log::info('submitProperty method called');
         $request->validate([
             'property_name' => 'required|string|max:255',
             'property_status' => 'required|in:rent,buy',
@@ -150,7 +151,12 @@ class SellerController extends Controller
             ];
 
             // Send email to agent
-            Mail::to($agent->email)->send(new PropertySubmissionMail($propertyData, $sellerName));
+            try {
+                Mail::to($agent->email)->send(new PropertySubmissionMail($propertyData, $sellerName));
+            } catch (\Exception $mailException) {
+                \Log::error('Property submission mail error: ' . $mailException->getMessage());
+                return redirect()->back()->with('error', 'Property submitted but failed to send email to the agent.');
+            }
             
             return redirect()->back()->with('success', 'Property submitted successfully and email sent to the agent.');
         } catch (\Exception $e) {

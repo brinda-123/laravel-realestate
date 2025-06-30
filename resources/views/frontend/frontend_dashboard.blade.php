@@ -335,7 +335,7 @@
     </script>
 
 
-    <!-- // start load Wishlist Data  -->
+    <!-- // start load compare Data  -->
 
     <script type="text/javascript">
         function compare() {
